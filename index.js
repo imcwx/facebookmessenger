@@ -97,7 +97,7 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'image':
-        myModule.sendImageMessage(senderID);
+        sendImageMessage(senderID);
         break;
 
       default:
