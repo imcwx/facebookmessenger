@@ -77,7 +77,7 @@ function receivedMessage(event) {
 
 
   var apiaiRequest = apiaiApp.textRequest(messageText, {
-    sessionId: 'tabby_cat'
+    sessionId: senderID+recipientID 
   });
 
 
