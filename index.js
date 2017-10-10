@@ -1,4 +1,3 @@
-
 const FB_ACECSS_TOKEN = process.env.FB_ACECSS_TOKEN
 const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN
 const APIAI_TOKEN = process.env.APIAI_TOKEN;
@@ -61,6 +60,7 @@ app.post('/webhook', function (req, res) {
   }
 });
   
+
 function receivedMessage(event) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
@@ -85,7 +85,6 @@ function receivedMessage(event) {
 
     apiaiRequest.on('response', (response) => {
     var aiText = response.result.fulfillment.speech;
-    console.log("aiText")
     console.log(aiText);
 
     // If we receive a text message, check to see if it matches a keyword
@@ -110,7 +109,6 @@ function receivedMessage(event) {
 
   apiaiRequest.end();
 }
-
 
 
 function sendGenericMessage(recipientId) {
@@ -196,7 +194,6 @@ function callSendAPI(messageData) {
     }
   });  
 }
-
 
 
 app.listen(app.get('port'),function(){
