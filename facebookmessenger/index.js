@@ -76,15 +76,16 @@ function receivedMessage(event) {
   var messageAttachments = message.attachments;
 
 
-  let apiai = apiaiApp.textRequest(messageText, {
+  var apiaiRequest = apiaiApp.textRequest(messageText, {
     sessionId: 'tabby_cat'
   });
 
 
   if (messageText) {
 
-    apiai.on('response', (response) => {
-    let aiText = response.result.fulfillment.speech;
+    apiaiRequest.on('response', (response) => {
+    var aiText = response.result.fulfillment.speech;
+    console.log("aiText")
     console.log(aiText);
 
     // If we receive a text message, check to see if it matches a keyword
@@ -103,12 +104,13 @@ function receivedMessage(event) {
     sendTextMessage(senderID, "Message with attachment received");
   }
 
-    apiai.on('error', (error) => {
+    apiaiRequest.on('error', (error) => {
     console.log(error);
   });
 
-  apiai.end();
+  apiaiRequest.end();
 }
+
 
 
 function sendGenericMessage(recipientId) {
