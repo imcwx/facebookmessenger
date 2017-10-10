@@ -8,7 +8,7 @@ const bodyParser  = require('body-parser')
 const request = require('request')
 const apiai = require('apiai');
 
-import {sendImageMessage} from 'my_module';
+import {sendImageMessage} from 'app';
 
 
 const app = express()
