@@ -1,16 +1,21 @@
 
 const FB_ACECSS_TOKEN = process.env.FB_ACECSS_TOKEN
 const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN
+const APIAI_TOKEN = process.env.APIAI_TOKEN;
+
 
 const express = require('express')
 const bodyParser  = require('body-parser')
 const request = require('request')
+const apiai = require('apiai');
+
 const app = express()
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 
 app.set('port',(process.env.PORT || 5000))
 
-app.use(bodyParser.urlencoded({extended: false}))
-app.use(bodyParser.json())
+const apiaiApp = apiai(APIAI_TOKEN);
 
 app.get('/', function (req, res){
 	res.send('Hello Youtube!')
@@ -67,11 +72,21 @@ function receivedMessage(event) {
   console.log(JSON.stringify(message));
 
   var messageId = message.mid;
-
   var messageText = message.text;
   var messageAttachments = message.attachments;
 
+
+  var apiaiRequest = apiaiApp.textRequest(messageText, {
+    sessionId: 'tabby_cat'
+  });
+
+
   if (messageText) {
+
+    apiaiRequest.on('response', (response) => {
+    var aiText = response.result.fulfillment.speech;
+    console.log("aiText")
+    console.log(aiText);
 
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
@@ -81,12 +96,21 @@ function receivedMessage(event) {
         break;
 
       default:
-        sendTextMessage(senderID, messageText);
+        // sendTextMessage(senderID, messageText);
+        sendTextMessage(senderID, aiText);
     }
+  });
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
+
+    apiaiRequest.on('error', (error) => {
+    console.log(error);
+  });
+
+  apiaiRequest.end();
 }
+
 
 
 function sendGenericMessage(recipientId) {
@@ -135,6 +159,7 @@ function sendGenericMessage(recipientId) {
 
   callSendAPI(messageData);
 }
+
 
 function sendTextMessage(recipientId, messageText) {
   var messageData = {
