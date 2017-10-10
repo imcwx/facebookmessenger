@@ -76,16 +76,16 @@ function receivedMessage(event) {
   var messageAttachments = message.attachments;
 
 
-  let apiai = apiaiApp.textRequest(text, {
+  let apiai = apiaiApp.textRequest(messageText, {
     sessionId: 'tabby_cat'
   });
 
-  apiai.on('response', (response) => {
-    let aiText = response.result.fulfillment.speech;
-    console.log(aiText);
-
 
   if (messageText) {
+
+    apiai.on('response', (response) => {
+    let aiText = response.result.fulfillment.speech;
+    console.log(aiText);
 
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
@@ -98,9 +98,16 @@ function receivedMessage(event) {
         // sendTextMessage(senderID, messageText);
         sendTextMessage(senderID, aiText);
     }
+  });
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
+
+    apiai.on('error', (error) => {
+    console.log(error);
+  });
+
+  apiai.end();
 }
 
 
