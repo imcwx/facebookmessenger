@@ -93,6 +93,9 @@ function receivedMessage(event) {
       case 'generic':
         sendGenericMessage(senderID);
         break;
+      case 'image':
+        sendImageMessage(senderID):
+        break;
 
       default:
         // sendTextMessage(senderID, messageText);
@@ -125,7 +128,7 @@ function sendGenericMessage(recipientId) {
             title: "rift",
             subtitle: "Next-generation virtual reality",
             item_url: "https://www.oculus.com/en-us/rift/",               
-            image_url: "http://messengerdemo.parseapp.com/img/rift.png",
+            image_url: "https://c1.staticflickr.com/8/7160/13300603614_db998fefd0_b.jpg",
             buttons: [{
               type: "web_url",
               url: "https://www.oculus.com/en-us/rift/",
@@ -139,7 +142,7 @@ function sendGenericMessage(recipientId) {
             title: "touch",
             subtitle: "Your Hands, Now in VR",
             item_url: "https://www.oculus.com/en-us/touch/",               
-            image_url: "http://messengerdemo.parseapp.com/img/touch.png",
+            image_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Oculus-Rift-Touch-Controllers-Pair.jpg/1280px-Oculus-Rift-Touch-Controllers-Pair.jpg",
             buttons: [{
               type: "web_url",
               url: "https://www.oculus.com/en-us/touch/",
@@ -157,6 +160,25 @@ function sendGenericMessage(recipientId) {
 
   callSendAPI(messageData);
 }
+
+
+function sendImageMessage(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "image",
+        payload: {
+          url: "https://cdn.pixabay.com/photo/2017/05/05/22/28/kitten-2288404_960_720.jpg"
+        }
+      }
+    }
+  };
+  callSendAPI(messageData);
+}
+
 
 
 function sendTextMessage(recipientId, messageText) {
