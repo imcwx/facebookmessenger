@@ -94,7 +94,7 @@ function receivedMessage(event) {
         sendGenericMessage(senderID);
         break;
       case 'image':
-        sendImageMessage(senderID):
+        sendImageMessage(senderID);
         break;
 
       default:
