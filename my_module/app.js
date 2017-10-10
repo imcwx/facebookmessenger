@@ -1,4 +1,4 @@
-export function sendImageMessage(recipientId) {
+function sendImageMessage(recipientId) {
   var messageData = {
     recipient: {
       id: recipientId
