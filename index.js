@@ -65,13 +65,13 @@ app.post('/webhook', function (req, res) {
   
 
 function receivedMessage(event) {
-  var senderID = event.sender.id;
-  var recipientID = event.recipient.id;
+  var senderId = event.sender.id;
+  var recipientId = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message;
 
   console.log("Received message for user %d and page %d at %d with message:", 
-    senderID, recipientID, timeOfMessage);
+    senderId, recipientId, timeOfMessage);
   console.log(JSON.stringify(message));
 
   var messageId = message.mid;
@@ -80,7 +80,7 @@ function receivedMessage(event) {
 
 
   var apiaiRequest = apiaiApp.textRequest(messageText, {
-    sessionId: senderID+recipientID 
+    sessionId: senderId+recipientId 
   });
 
 
