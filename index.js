@@ -22,7 +22,7 @@ app.set('port',(process.env.PORT || 5000))
 const apiaiApp = apiai(APIAI_TOKEN);
 
 app.get('/', function (req, res){
-	res.send('Hello Youtube!')
+	res.send('Hello Facebook!!')
 })
 
 
@@ -105,7 +105,7 @@ function receivedMessage(event) {
         sendCheckin(senderId);
         break;
       case 'list':
-        sendList(senderId);
+        sendList(senderId);   // not working, need to implement url to whitelist?
         break;
 
       default:
