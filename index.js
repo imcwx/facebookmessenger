@@ -197,14 +197,82 @@ function sendTextMessage(recipientId, messageText) {
 }
 
 
+
+
+
+
+// var headers = {
+//     'Content-Type': 'application/json'
+// };
+
+// var dataString = {
+//   "recipient": {
+//     "id": "<PSID>"
+//   },
+//   "message": {
+//     "attachment": {
+//       "type": "template",
+//       "payload": {
+//         "template_type": "airline_update",
+//         "intro_message": "Your flight is delayed",
+//         "update_type": "delay",
+//         "locale": "en_US",
+//         "pnr_number": "CF23G2",
+//         "update_flight_info": {
+//           "flight_number": "KL123",
+//           "departure_airport": {
+//             "airport_code": "SFO",
+//             "city": "San Francisco",
+//             "terminal": "T4",
+//             "gate": "G8"
+//           },
+//           "arrival_airport": {
+//             "airport_code": "AMS",
+//             "city": "Amsterdam",
+//             "terminal": "T4",
+//             "gate": "G8"
+//           },
+//           "flight_schedule": {
+//             "boarding_time": "2015-12-26T10:30",
+//             "departure_time": "2015-12-26T11:30",
+//             "arrival_time": "2015-12-27T07:30"
+//           }
+//         }
+//       }
+//     }
+//   }
+// };
+
+// var options = {
+//     url: 'https://graph.facebook.com/v2.6/me/messages?access_token=<PAGE_ACCESS_TOKEN>',
+//     method: 'POST',
+//     headers: headers,
+//     body: dataString
+// };
+
+// function callback(error, response, body) {
+//     if (!error && response.statusCode == 200) {
+//         console.log(body);
+//     }
+// }
+
+// request(options, callback);
+
+
+
+
+
+
 function callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
     qs: { access_token: FB_ACECSS_TOKEN },
     method: 'POST',
     json: messageData
+    }, callback);  
+}
 
-  }, function (error, response, body) {
+function callback(error, response, body) {
     if (!error && response.statusCode == 200) {
       var recipientId = body.recipient_id;
       var messageId = body.message_id;
@@ -216,8 +284,8 @@ function callSendAPI(messageData) {
       console.error(response);
       console.error(error);
     }
-  });  
-}
+  }
+
 
 
 app.listen(app.get('port'),function(){
