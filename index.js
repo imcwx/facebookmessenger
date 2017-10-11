@@ -94,22 +94,22 @@ function receivedMessage(event) {
     // and send back the example. Otherwise, just echo the text we received.
     switch (messageText) {
       case 'generic':
-        sendGenericMessage(recipientId);
+        sendGenericMessage(senderId);
         break;
       case 'image':
-        sendImageMessage(recipientId);
+        sendImageMessage(senderId);
         break;
       case 'checkin':
-        sendCheckin(recipientId);
+        sendCheckin(senderId);
         break;
 
       default:
         // sendTextMessage(senderID, messageText);
-        sendTextMessage(senderID, aiText);
+        sendTextMessage(senderId, aiText);
     }
   });
   } else if (messageAttachments) {
-    sendTextMessage(senderID, "Message with attachment received");
+    sendTextMessage(senderId, "Message with attachment received");
   }
 
     apiaiRequest.on('error', (error) => {
