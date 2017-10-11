@@ -94,10 +94,13 @@ function receivedMessage(event) {
     // and send back the example. Otherwise, just echo the text we received.
     switch (messageText) {
       case 'generic':
-        sendGenericMessage(senderID);
+        sendGenericMessage(recipientId);
         break;
       case 'image':
-        sendImageMessage(senderID);
+        sendImageMessage(recipientId);
+        break;
+      case 'checkin':
+        sendCheckin(recipientId);
         break;
 
       default:
