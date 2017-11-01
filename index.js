@@ -88,13 +88,13 @@ function receivedMessage(event) {
 
   if (messageText) {
 
-    // apiaiRequest.on('response', (response) => {
-    // var aiText = response.result.fulfillment.speech;
-    // console.log(aiText);
-
     apiaiRequest.on('response', (response) => {
-    var aiText = response;
+    var aiText = response.result.fulfillment.speech;
     console.log(aiText);
+
+    // apiaiRequest.on('response', (response) => {
+    // var aiText = response;
+    // console.log(aiText);
 
 
     // If we receive a text message, check to see if it matches a keyword
